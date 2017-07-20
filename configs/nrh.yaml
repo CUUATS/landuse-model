@@ -1,0 +1,103 @@
+name: nrh
+
+model_type: segmented_regression
+
+segmentation_col: general_type
+
+fit_filters:
+- general_type in ['Retail', 'Office', 'Industrial']
+
+predict_filters:
+- general_type != 'Residential'
+
+min_segment_size: 10
+
+default_config:
+    model_expression: np.log1p(non_residential_rent) ~ I(year_built < 1940) + I(year_built
+        > 2005) + np.log1p(stories) + ave_income + jobs
+    ytransform: np.exp
+
+models:
+    Industrial:
+        fit_parameters:
+            Coefficient:
+                I(year_built < 1940)[T.True]: -0.3185567828908648
+                I(year_built > 2005)[T.True]: -0.0483308508384799
+                Intercept: 3.7204541959263224
+                ave_income: -0.18258915734195263
+                jobs: 0.06049894305710516
+                np.log1p(stories): 0.3851447981685894
+            Std. Error:
+                I(year_built < 1940)[T.True]: 0.0227624167106965
+                I(year_built > 2005)[T.True]: 0.10095364185624336
+                Intercept: 0.30938395967872745
+                ave_income: 0.026648113190242864
+                jobs: 0.012145936538423411
+                np.log1p(stories): 0.041922844605675684
+            T-Score:
+                I(year_built < 1940)[T.True]: -13.994857705120952
+                I(year_built > 2005)[T.True]: -0.47874301461360236
+                Intercept: 12.025362270848628
+                ave_income: -6.851860619115321
+                jobs: 4.9810027300668045
+                np.log1p(stories): 9.186991049659042
+        fit_rsquared: 0.10465137885621623
+        fit_rsquared_adj: 0.1028971691752919
+        fitted: true
+        name: Industrial
+    Office:
+        fit_parameters:
+            Coefficient:
+                I(year_built < 1940)[T.True]: -0.315597539809244
+                I(year_built > 2005)[T.True]: -0.023798753029207663
+                Intercept: 4.159251076678665
+                ave_income: -0.07194078872613
+                jobs: -0.04293032188151033
+                np.log1p(stories): 0.17499882930445865
+            Std. Error:
+                I(year_built < 1940)[T.True]: 0.02650378571815183
+                I(year_built > 2005)[T.True]: 0.11856939571383517
+                Intercept: 0.32055546843010646
+                ave_income: 0.025217706181224674
+                jobs: 0.013409504560670365
+                np.log1p(stories): 0.024361823122539678
+            T-Score:
+                I(year_built < 1940)[T.True]: -11.90764003170681
+                I(year_built > 2005)[T.True]: -0.20071581613391595
+                Intercept: 12.975136868037996
+                ave_income: -2.85278875918112
+                jobs: -3.201484565464376
+                np.log1p(stories): 7.18332238208186
+        fit_rsquared: 0.06551810610892217
+        fit_rsquared_adj: 0.06423694091302001
+        fitted: true
+        name: Office
+    Retail:
+        fit_parameters:
+            Coefficient:
+                I(year_built < 1940)[T.True]: -0.32527581089833774
+                I(year_built > 2005)[T.True]: -0.11072856144874982
+                Intercept: 3.970393812042153
+                ave_income: -0.04829788689322334
+                jobs: -0.036666543973749355
+                np.log1p(stories): 0.23269053619775532
+            Std. Error:
+                I(year_built < 1940)[T.True]: 0.025276428557610753
+                I(year_built > 2005)[T.True]: 0.10374226964477745
+                Intercept: 0.3312623751679877
+                ave_income: 0.02577454064147273
+                jobs: 0.013639213426007513
+                np.log1p(stories): 0.03686890363852285
+            T-Score:
+                I(year_built < 1940)[T.True]: -12.868740936123942
+                I(year_built > 2005)[T.True]: -1.067342770000059
+                Intercept: 11.985646755170164
+                ave_income: -1.8738602392590942
+                jobs: -2.688318074401042
+                np.log1p(stories): 6.311295244337731
+        fit_rsquared: 0.04558256441025299
+        fit_rsquared_adj: 0.044541987179998244
+        fitted: true
+        name: Retail
+
+fitted: true

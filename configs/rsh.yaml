@@ -1,0 +1,57 @@
+name: rsh
+
+model_type: regression
+
+fit_filters:
+- unit_lot_size > 0
+- year_built > 1000
+- year_built < 2020
+- unit_sqft > 100
+- unit_sqft < 20000
+
+predict_filters:
+- general_type == 'Residential'
+
+model_expression: np.log1p(residential_sales_price) ~ I(year_built < 1940) + I(year_built
+    > 2005) + np.log1p(unit_sqft) + np.log1p(unit_lot_size) + sum_residential_units
+    + ave_lot_sqft + ave_unit_sqft + ave_income
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        I(year_built < 1940)[T.True]: 0.0011895482856866188
+        I(year_built > 2005)[T.True]: -0.06325846669442337
+        Intercept: -3.863844437919157
+        ave_income: 1.4190556339213318
+        ave_lot_sqft: -0.21772383629415307
+        ave_unit_sqft: 0.9370569372443225
+        np.log1p(unit_lot_size): -0.14762695519016836
+        np.log1p(unit_sqft): -1.4829747088018999
+        sum_residential_units: 0.09867470586761287
+    Std. Error:
+        I(year_built < 1940)[T.True]: 0.00743215821535023
+        I(year_built > 2005)[T.True]: 0.04867514401549855
+        Intercept: 0.16983073840245624
+        ave_income: 0.0152883433919949
+        ave_lot_sqft: 0.01023456762475928
+        ave_unit_sqft: 0.020455976617253624
+        np.log1p(unit_lot_size): 0.006356522140968624
+        np.log1p(unit_sqft): 0.00703003996341793
+        sum_residential_units: 0.00823155445294734
+    T-Score:
+        I(year_built < 1940)[T.True]: 0.16005421994781405
+        I(year_built > 2005)[T.True]: -1.2996051264744357
+        Intercept: -22.7511490220505
+        ave_income: 92.81945057986864
+        ave_lot_sqft: -21.273379030437933
+        ave_unit_sqft: 45.80846736273449
+        np.log1p(unit_lot_size): -23.224485326448114
+        np.log1p(unit_sqft): -210.94826153461773
+        sum_residential_units: 11.987372060969847
+
+fit_rsquared_adj: 0.39900398400269177
+
+fit_rsquared: 0.399036164127772
