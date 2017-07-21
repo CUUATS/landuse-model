@@ -14,5 +14,5 @@ As of now the data inputs for the various models are only partially complete. Th
 
 * Household Transition Model
 * Household Relocation Model
-  - Missing Building ID 
+ 
 
